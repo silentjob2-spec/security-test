@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحذير أمني - تم الاختراق</title>
+    <style>
+        body {
+            background-color: black;
+            color: #00FF00;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        #matrix-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .warning-box {
+            border: 2px solid #FF0000;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 20px #FF0000;
+            z-index: 10;
+        }
+
+        h1 {
+            color: #FF0000;
+            font-size: 3rem;
+            margin-bottom: 10px;
+            animation: blink 0.5s infinite;
+        }
+
+        .info {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-credit {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            color: #555;
+            font-size: 0.8rem;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        #loading-text {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="matrix-canvas"></canvas>
+
+    <div class="warning-box">
+        <h1>تم اختراق جهازك بنجاح!</h1>
+        <p class="info">جاري سحب الصور والملفات الشخصية وفك تشفير كلمات المرور...</p>
+        <div id="loading-text">جاري الاتصال بالسيرفر الخارجي... [0%]</div>
+        <p style="margin-top: 20px; color: #fff;">هل تعتقد أن هذا حقيقي؟ هذا ما يحدث عند الضغط على روابط مجهولة.</p>
+        <button onclick="revealTruth()" style="padding: 10px 20px; background: #FF0000; color: white; border: none; cursor: pointer; font-weight: bold;">اضغط هنا للإنقاذ!</button>
+    </div>
+
+    <div class="footer-credit">إعداد الأستاذ إياد خضر</div>
+
+    <script>
+        // تأثير Matrix في الخلفية
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()*&^';
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+
+        for (let x = 0; x < columns; x++) drops[x] = 1;
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px arial';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 33);
+
+        // محاكاة التحميل المخيفة
+        let percent = 0;
+        const loadingText = document.getElementById('loading-text');
+        const interval = setInterval(() => {
+            percent += Math.floor(Math.random() * 10) + 1;
+            if (percent > 100) percent = 100;
+            loadingText.innerText = `جاري سحب البيانات... [${percent}%]`;
+            if (percent === 100) {
+                loadingText.style.color = "white";
+                loadingText.innerText = "اكتملت العملية. وداعاً لبياناتك!";
+                clearInterval(interval);
+            }
+        }, 800);
+
+        function revealTruth() {
+            alert("لا تقلق! هذا مجرد درس تعليمي مع الأستاذ إياد خضر.\n\nتذكر دائماً: لا تضغط على أي رابط مجهول، وفعل ميزة التحقق بخطوتين لحماية حساباتك.");
+            location.reload();
+        }
+    </script>
+</body>
+</html>
