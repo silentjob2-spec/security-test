@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- العنوان المتوافق مع المتصفحات والواتساب -->
     <title>مبروك للرابحين معنا اليوم</title>
+    <meta property="og:title" content="مبروك للرابحين معنا اليوم">
+    <meta property="og:description" content="اضغط هنا للدخول وتفعيل جائزتك الفورية لعام 2026">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://img.icons8.com/color/480/gift--v1.png"> <!-- صورة تعبيرية لهدية لتضليل الضحية -->
+
     <style>
         body {
             background-color: black;
@@ -32,17 +39,18 @@
             background: rgba(0, 0, 0, 0.8);
             box-shadow: 0 0 20px #FF0000;
             z-index: 10;
+            max-width: 90%;
         }
 
         h1 {
             color: #FF0000;
-            font-size: 3rem;
+            font-size: clamp(1.5rem, 5vw, 3rem);
             margin-bottom: 10px;
             animation: blink 0.5s infinite;
         }
 
         .info {
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 3vw, 1.2rem);
             margin-bottom: 20px;
         }
 
@@ -64,6 +72,17 @@
             margin-top: 15px;
             font-weight: bold;
         }
+
+        button {
+            padding: 10px 20px;
+            background: #FF0000;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -75,13 +94,12 @@
         <p class="info">جاري سحب الصور والملفات الشخصية وفك تشفير كلمات المرور...</p>
         <div id="loading-text">جاري الاتصال بالسيرفر الخارجي... [0%]</div>
         <p style="margin-top: 20px; color: #fff;">هل تعتقد أن هذا حقيقي؟ هذا ما يحدث عند الضغط على روابط مجهولة.</p>
-        <button onclick="revealTruth()" style="padding: 10px 20px; background: #FF0000; color: white; border: none; cursor: pointer; font-weight: bold;">اضغط هنا للإنقاذ!</button>
+        <button onclick="revealTruth()">اضغط هنا للإنقاذ!</button>
     </div>
 
-    
+    <div class="footer-credit">إعداد الأستاذ إياد خضر</div>
 
     <script>
-        // تأثير Matrix في الخلفية
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
 
@@ -110,7 +128,6 @@
         }
         setInterval(drawMatrix, 33);
 
-        // محاكاة التحميل المخيفة
         let percent = 0;
         const loadingText = document.getElementById('loading-text');
         const interval = setInterval(() => {
@@ -125,9 +142,14 @@
         }, 800);
 
         function revealTruth() {
-            alert("لا تقلق! هذا مجرد درس تعليمي .\n\nتذكر دائماً: لا تضغط على أي رابط مجهول، وفعل ميزة التحقق بخطوتين لحماية حساباتك.");
+            alert("لا تقلق! هذا مجرد درس تعليمي مع الأستاذ إياد خضر.\n\nتذكر دائماً: لا تضغط على أي رابط مجهول، وفعل ميزة التحقق بخطوتين لحماية حساباتك.");
             location.reload();
         }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
     </script>
 </body>
 </html>
